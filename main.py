@@ -1,16 +1,14 @@
-import os
 from pathlib import Path
-
+from awesome_youtube_captioner.transcriber import DeepgramTranscriber, TranscriberConfig
+from awesome_youtube_captioner.yt_downloader import YouTubeDownloader
 from dotenv import load_dotenv
-
-from transcriber import DeepgramTranscriber, TranscriberConfig
-from yt_downloader import YouTubeDownloader
+import os
 
 load_dotenv()
 
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
 YOUTUBE_URL = "https://www.youtube.com/watch?v=BQO9Xu6zgwg"
-VIDEO_DIRECTORY = Path("YOUR/VIDEO/DIRECTORY")
+VIDEO_DIRECTORY = Path("downloaded_videos")
 downloader = YouTubeDownloader()
 
 try:
