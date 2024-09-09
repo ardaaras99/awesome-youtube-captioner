@@ -1,80 +1,75 @@
-# awesome-youtube-captioner
+# Awesome YouTube Captioner
 
 ## Overview
 
-Deepgram Transcriber is a Python-based tool that leverages the Deepgram API to transcribe audio files. It provides a streamlined pipeline for converting MP3 files into both SRT (SubRip Subtitle) and CSV (Comma-Separated Values) formats, making it easy to work with transcribed audio in various applications.
+Awesome YouTube Captioner is a Python-based tool that leverages the Deepgram API to transcribe YouTube videos. It provides a streamlined pipeline for downloading YouTube audio, converting it into both SRT (SubRip Subtitle) and CSV (Comma-Separated Values) formats, making it easy to work with transcribed audio in various applications.
 
 ## Features
 
-- Transcribe MP3 audio files using Deepgram's advanced speech recognition technology
+- Download audio from YouTube videos
+- Transcribe audio files using Deepgram's advanced speech recognition technology
 - Generate SRT files for use in video subtitling
 - Create CSV files for easy data manipulation and analysis
 - Avoid redundant processing by checking for existing transcription files
 - Configurable transcription parameters including language, model, smart formatting, and speaker diarization
 
-## Requirements
-
-- Python 3.12+
-- Poetry for dependency management
-
-## Dependencies
-
-- `deepgram-sdk` (v3.5.1+)
-- `yt-dlp` (v2024.8.6+)
-- `tqdm` (v4.66.5+)
-- `requests` (v2.32.3+)
-- `python-dotenv` (v1.0.1+)
-- `deepgram-captions` (v1.2.0+)
-- `pandas` (v2.2.2+)
-
 ## Installation
 
-1. Clone this repository:
+To use Awesome YouTube Captioner in your project, add it as a dependency using Poetry:
+
+1. If you haven't already, initialize your project with Poetry:
 
    ```
-   git clone https://github.com/yourusername/deepgram-transcriber.git
-   cd deepgram-transcriber
+   poetry init
    ```
 
-2. Install Poetry if you haven't already:
+2. Add Awesome YouTube Captioner as a dependency:
 
    ```
-   curl -sSL https://install.python-poetry.org | python3 -
+   poetry add git+https://github.com/ardaaras99/awesome-youtube-captioner.git
    ```
 
-3. Install the project dependencies using Poetry:
+   This will add the following line to your `pyproject.toml`:
+
+   ```toml
+   [tool.poetry.dependencies]
+   awesome-youtube-captioner = {git = "https://github.com/ardaaras99/awesome-youtube-captioner.git"}
+   ```
+
+3. Install the dependencies:
 
    ```
    poetry install
    ```
 
-4. Set up your Deepgram API key:
-   - Sign up for a Deepgram account at <https://deepgram.com/>
-   - Obtain your API key from the Deepgram dashboard
-   - Create a `.env` file in the project root and add your API key:
+## Configuration
 
-     ```
-     DEEPGRAM_API_KEY=your_api_key_here
-     ```
+Before using the Awesome YouTube Captioner, you need to set up your Deepgram API key:
+
+1. Sign up for a Deepgram account at <https://deepgram.com/>
+2. Obtain your API key from the Deepgram dashboard
+3. Create a `.env` file in your project root and add your API key:
+
+   ```
+   DEEPGRAM_API_KEY=your_api_key_here
+   ```
 
 ## Usage
 
-1. Activate the Poetry environment:
-
-   ```
-   poetry shell
-   ```
-
-2. In your Python script or interactive session, import the necessary classes and create a `TranscriberConfig` object:
+1. In your Python script, import the necessary classes:
 
    ```python
    from pathlib import Path
    from dotenv import load_dotenv
    import os
-   from src.transcriber import TranscriberConfig, DeepgramTranscriber
+   from awesome_youtube_captioner import TranscriberConfig, DeepgramTranscriber
 
    load_dotenv()  # Load environment variables from .env file
+   ```
 
+2. Create a `TranscriberConfig` object:
+
+   ```python
    config = TranscriberConfig(
        api_key=os.getenv("DEEPGRAM_API_KEY"),
        language="en",
@@ -85,20 +80,20 @@ Deepgram Transcriber is a Python-based tool that leverages the Deepgram API to t
    )
    ```
 
-3. Create a `DeepgramTranscriber` instance with your config:
+3. Create a `DeepgramTranscriber` instance:
 
    ```python
    transcriber = DeepgramTranscriber(config)
    ```
 
-4. Process an audio file:
+4. Process a YouTube video:
 
    ```python
-   audio_file_path = Path("/path/to/your/audio/file.mp3")
-   srt_path, csv_path, df = transcriber.process_audio(audio_file_path)
+   youtube_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+   srt_path, csv_path, df = transcriber.process_youtube_video(youtube_url)
    ```
 
-5. The `process_audio` method returns:
+5. The `process_youtube_video` method returns:
    - `srt_path`: Path to the generated SRT file
    - `csv_path`: Path to the generated CSV file
    - `df`: Pandas DataFrame containing the transcription data
@@ -114,25 +109,13 @@ The `TranscriberConfig` class accepts the following parameters:
 - `diarize` (bool, optional): Whether to perform speaker diarization (default: True)
 - `timeout` (int, optional): API call timeout in seconds (default: 600)
 
-## Output Files
-
-1. SRT File:
-   - Located in the same directory as the input audio file
-   - Named "transcript.srt"
-   - Contains timestamped subtitles with optional speaker labels
-
-2. CSV File:
-   - Located in the same directory as the input audio file
-   - Named "transcript.csv"
-   - Contains columns: start_time, end_time, speaker, text
-
 ## Example
 
 ```python
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-from deepgram_transcriber import TranscriberConfig, DeepgramTranscriber
+from awesome_youtube_captioner import TranscriberConfig, DeepgramTranscriber
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -149,9 +132,9 @@ config = TranscriberConfig(
 # Create transcriber instance
 transcriber = DeepgramTranscriber(config)
 
-# Process audio file
-audio_file_path = Path("/path/to/your/audio/file.mp3")
-srt_path, csv_path, df = transcriber.process_audio(audio_file_path)
+# Process YouTube video
+youtube_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+srt_path, csv_path, df = transcriber.process_youtube_video(youtube_url)
 
 # Print results
 print(f"SRT file created: {srt_path}")
@@ -162,7 +145,7 @@ print(df.head())
 
 ## Contributing
 
-Contributions to improve Deepgram Transcriber are welcome! Please feel free to submit a Pull Request.
+Contributions to improve Awesome YouTube Captioner are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
