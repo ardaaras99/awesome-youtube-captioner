@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "awesome-youtube-captioner"
+version = "0.1.0"
+description = ""
+authors = ["Arda Can Aras <ardaaras99@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+deepgram-sdk = "^3.5.1"
+yt-dlp = "^2024.8.6"
+tqdm = "^4.66.5"
+requests = "^2.32.3"
+python-dotenv = "^1.0.1"
+deepgram-captions = "^1.2.0"
+pandas = "^2.2.2"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
+[tool.ruff]
+line-length = 300
+
+[tool.ruff.format]
+# Like Black
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint]
+extend-select = [
+    "A",  # flake8-builtins
+    "B",  # flake8-bugbear
+    "S",  # flake8-bandit
+    "I",  # isort
+    "UP", # pyupgrade
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"*" = ["S101", "S301", "S311"]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
