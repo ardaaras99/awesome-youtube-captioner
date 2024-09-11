@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Captioner with Deepgram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="text"],
+        select,
+        input[type="submit"] {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>YouTube Captioner with Deepgram</h1>
+    <form method="POST">
+        <input type="text" name="youtube_url" placeholder="Enter YouTube URL" required>
+        <select name="format">
+            <option value="srt">SRT</option>
+            <option value="csv">CSV</option>
+            <option value="json">JSON</option>
+        </select>
+        <input type="submit" value="Get Transcript">
+    </form>
+</body>
+
+</html>
