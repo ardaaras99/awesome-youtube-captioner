@@ -22,13 +22,17 @@ except Exception as e:
 
 config = TranscriberConfig(
     api_key=DEEPGRAM_API_KEY,
-    language="tr",
     model="nova-2",
+    language="tr",
     smart_format=True,
+    paragraphs=True,
+    utterances=True,
+    utt_split=1.0,
+    replace=None,
+    search=None,
+    keywords=None,
     diarize=True,
-    timeout=200,
 )
-
 transcriber = DeepgramTranscriber(config)
 
 try:

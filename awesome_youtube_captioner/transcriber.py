@@ -12,11 +12,17 @@ from deepgram_captions import DeepgramConverter, srt
 @dataclass
 class TranscriberConfig:
     api_key: str
-    language: str = "en"
-    model: str = "general"
-    smart_format: bool = True
-    diarize: bool = True
-    timeout: int = 600
+    model: str = None
+    language: str = None
+    punctuate: bool = False
+    smart_format: bool = False
+    paragraphs: bool = False
+    utterances: bool = False
+    utt_split: float = None
+    replace: list = None
+    search: bool = False
+    keywords: list = None
+    diarize: bool = False
 
 
 class DeepgramTranscriber:
@@ -66,8 +72,15 @@ class DeepgramTranscriber:
 
         options = PrerecordedOptions(
             model=self.config.model,
-            smart_format=self.config.smart_format,
             language=self.config.language,
+            punctuate=self.config.punctuate,
+            smart_format=self.config.smart_format,
+            paragraphs=self.config.paragraphs,
+            utterances=self.config.utterances,
+            utt_split=self.config.utt_split,
+            replace=self.config.replace,
+            search=self.config.search,
+            keywords=self.config.keywords,
             diarize=self.config.diarize,
         )
 
