@@ -32,6 +32,7 @@ config = TranscriberConfig(
     search=None,
     keywords=None,
     diarize=True,
+    timeout=600,
 )
 transcriber = DeepgramTranscriber(config)
 

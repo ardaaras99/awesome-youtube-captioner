@@ -23,6 +23,7 @@ class TranscriberConfig:
     search: bool = False
     keywords: list = None
     diarize: bool = False
+    timeout: int = 600
 
 
 class DeepgramTranscriber:
